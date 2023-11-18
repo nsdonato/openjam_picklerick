@@ -2,12 +2,9 @@
 import { Button } from '@/components/Button';
 
 export function Newsletter() {
-  const handleSubmit = (e: {
-    preventDefault: () => void;
-    target: HTMLFormElement | undefined;
-  }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
     alert(data.email);
   };
