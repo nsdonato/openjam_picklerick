@@ -115,7 +115,8 @@ export function Header() {
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="hidden md:block">
               <SignedOut>
-                <NavLink href="/">Sign in</NavLink>
+                <NavLink href="/sign-in">Sign in</NavLink>
+                <NavLink href="/sign-up">Sign up</NavLink>
               </SignedOut>
               <SignedIn>
                 <UserButton afterSignOutUrl="/" />
