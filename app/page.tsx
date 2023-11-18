@@ -1,6 +1,11 @@
-import { Newsletter } from '@/components/Newsletter';
+import { Newsletter } from "@/components/Newsletter";
+// import { getSubscriptionByEmail } from "@/lib/subscripton";
 
-export default function Home() {
+export default async function Home() {
+  // const subscription = await getSubscriptionByEmail(
+  //   "EMAIL"
+  // );
+
   return (
     <main className="">
       <Newsletter />
