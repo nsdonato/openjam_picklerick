@@ -1,10 +1,10 @@
-import { SignUp } from '@clerk/nextjs'
+import { Events } from '@/components/Events';
+import { SignedIn } from '@clerk/nextjs';
 
 export default function Page() {
   return (
-    <div className="flex justify-center py-24 bg-indigo-50">
-      <SignUp />
-      <h1 className="text-black">Usuario</h1>
-    </div>
-  )
+    <SignedIn>
+      <Events title="Mis eventos" />
+    </SignedIn>
+  );
 }
