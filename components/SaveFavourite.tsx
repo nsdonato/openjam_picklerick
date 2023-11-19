@@ -1,7 +1,7 @@
-'use client';
-import { useTransition, useState } from 'react';
-import { StarIcon } from '@heroicons/react/24/solid';
-import { saveFavourite } from '@/lib/favourites';
+"use client";
+import { useTransition, useState } from "react";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { saveFavourite } from "@/lib/favourites";
 
 type SaveFavouriteButtonProps = {
   userId: string;
@@ -15,7 +15,6 @@ export default function SaveFavouriteButton({
   email,
 }: SaveFavouriteButtonProps) {
   const [isPending, startTransition] = useTransition();
-  const [undo, setUndo] = useState(false);
 
   return (
     <button
@@ -24,19 +23,12 @@ export default function SaveFavouriteButton({
       className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-indigo-600 disabled:hover:shadow-none disabled:focus-visible:ring-2 disabled:focus-visible:ring-offset-2 disabled:focus-visible:ring-indigo-600"
       onClick={() =>
         startTransition(async () => {
-          await saveFavourite({ userId, eventId, email, undo });
-          setUndo((prev) => !prev);
+          await saveFavourite({ userId, eventId, email });
         })
       }
     >
       <StarIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-      {!undo
-        ? isPending
-          ? 'Saving...'
-          : 'Save'
-        : isPending
-        ? 'Undoing...'
-        : 'Undo'}
+      {isPending ? "Saving..." : "Save"}
     </button>
   );
 }
