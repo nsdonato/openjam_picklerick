@@ -1,7 +1,7 @@
-"use client";
-import { useTransition, useState } from "react";
-import { StarIcon } from "@heroicons/react/24/solid";
-import { saveFavourite } from "@/lib/favourites";
+'use client';
+import { useTransition, useState } from 'react';
+import { StarIcon } from '@heroicons/react/24/solid';
+import { saveFavourite } from '@/lib/favourites';
 
 type SaveFavouriteButtonProps = {
   userId: string;
@@ -32,11 +32,11 @@ export default function SaveFavouriteButton({
       <StarIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
       {!undo
         ? isPending
-          ? "Saving..."
-          : "Save"
+          ? 'Saving...'
+          : 'Save'
         : isPending
-        ? "Undoing..."
-        : "Undo"}
+        ? 'Undoing...'
+        : 'Undo'}
     </button>
   );
 }

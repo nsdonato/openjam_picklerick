@@ -1,8 +1,7 @@
-'use client'
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { MobileNavLink } from './MobileNavLink'
-import { MobileNavIcon } from './Header'
+import { Fragment } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { MobileNavLink } from './MobileNavLink';
+import { MobileNavIcon } from '../Header';
 
 export function MobileNavigation() {
   return (
@@ -45,5 +44,5 @@ export function MobileNavigation() {
         </Transition.Child>
       </Transition.Root>
     </Popover>
-  )
+  );
 }
