@@ -1,6 +1,6 @@
 export type Events = {
   date: string | string[];
-  name: string;
+  title: string;
   urls: {
     type: string;
     url: string;
