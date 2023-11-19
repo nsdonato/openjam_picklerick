@@ -1,7 +1,7 @@
-"use server";
-import mongoose from 'mongoose'
-import Favourites from "@/models/Favourites";
-import dbConnect from "./dbConnect";
+'use server';
+import mongoose from 'mongoose';
+import Favourites from '@/models/Favourites';
+import dbConnect from './dbConnect';
 import Conferences from '@/models/Conferences';
 import { ObjectId } from 'mongodb';
 
@@ -16,7 +16,10 @@ export async function saveFavourite(request: saveFavouriteType) {
   await dbConnect();
 
   if (request.undo) {
-    await Favourites.deleteOne({ userId: request.userId, eventId: request.eventId });
+    await Favourites.deleteOne({
+      userId: request.userId,
+      eventId: request.eventId,
+    });
     return;
   }
 
@@ -41,7 +44,7 @@ export async function getFavourites(userId: string) {
   const conferences = Conferences.find({
     _id: {
       $in: eventIds.map((id) => new ObjectId(id)),
-    }
+    },
   });
 
   return conferences;

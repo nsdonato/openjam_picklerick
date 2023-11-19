@@ -3,15 +3,18 @@ import { clerkClient, auth } from '@clerk/nextjs';
 import { User } from '@clerk/nextjs/server';
 import { Events } from '@/components/types/home.types';
 import { DiamondIcon } from '@/components/icons/DiamondIcon';
+import DeleteFavouriteButton from './DeleteFavourite';
 
 type HomeProps = {
   title?: string;
   events?: Events[];
+  isDelete: boolean;
 };
 
 export const Home = async ({
   title = 'Top eventos',
   events = [],
+  isDelete = false,
 }: HomeProps) => {
   const { userId } = auth();
 
@@ -33,13 +36,19 @@ export const Home = async ({
                 <span className="text-black mx-2 grow">{event.title}</span>
                 <DiamondIcon className="h-1.5 w-1.5 overflow-visible fill-current stroke-current mr-2" />
                 <span className="mr-2">
-                  {Array.isArray(event.date)
-                    ? Array.from(event.date).join(' y ')
-                    : event.date}
+                  {Array.isArray(event.eventDate)
+                    ? Array.from(event.eventDate).join(' y ')
+                    : event.eventDate}
                 </span>
               </div>
-              {user && (
+              {user && !isDelete ? (
                 <SaveFavouriteButton
+                  userId={userId as string}
+                  eventId={event._id}
+                  email={user.emailAddresses[0].emailAddress}
+                />
+              ) : (
+                <DeleteFavouriteButton
                   userId={userId as string}
                   eventId={event._id}
                   email={user.emailAddresses[0].emailAddress}
