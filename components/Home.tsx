@@ -1,8 +1,9 @@
-import SaveFavouriteButton from '@/components/SaveFavourite';
-import { clerkClient, auth } from '@clerk/nextjs';
-import { User } from '@clerk/nextjs/server';
-import { Events } from '@/components/types/home.types';
-import { DiamondIcon } from '@/components/icons/DiamondIcon';
+import SaveFavouriteButton from "@/components/SaveFavourite";
+import { clerkClient, auth } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
+import { Events } from "@/components/types/home.types";
+import { DiamondIcon } from "@/components/icons/DiamondIcon";
+import { getFavouriteEventIds } from "@/lib/favourites";
 
 type HomeProps = {
   title?: string;
@@ -10,14 +11,16 @@ type HomeProps = {
 };
 
 export const Home = async ({
-  title = 'Top eventos',
+  title = "Top eventos",
   events = [],
 }: HomeProps) => {
   const { userId } = auth();
 
   let user: User | null;
+  let favourites: string[] = [];
   if (userId) {
     user = await clerkClient.users.getUser(userId);
+    favourites = await getFavouriteEventIds(userId);
   }
 
   return (
@@ -27,18 +30,19 @@ export const Home = async ({
       </h1>
       <ul className="mt-20">
         {events.length > 0 ? (
-          events.map((event, index) => (
+          events.filter((event: Events | undefined) => event && !favourites.includes(event._id?.toString())).
+            map((event, index) => (
             <li key={index} className="h-12 flex mb-4">
               <div className="flex justify-between items-center">
                 <span className="text-black mx-2 grow">{event.title}</span>
                 <DiamondIcon className="h-1.5 w-1.5 overflow-visible fill-current stroke-current mr-2" />
                 <span className="mr-2">
                   {Array.isArray(event.date)
-                    ? Array.from(event.date).join(' y ')
+                    ? Array.from(event.date).join(" y ")
                     : event.date}
                 </span>
               </div>
-              {user && (
+              {user && !favourites.includes(event._id.toString()) && (
                 <SaveFavouriteButton
                   userId={userId as string}
                   eventId={event._id}

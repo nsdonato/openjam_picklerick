@@ -4,6 +4,7 @@ import Favourites from "@/models/Favourites";
 import dbConnect from "./dbConnect";
 import Conferences from '@/models/Conferences';
 import { ObjectId } from 'mongodb';
+import { revalidatePath } from 'next/cache';
 
 type saveFavouriteType = {
   userId: string;
@@ -29,6 +30,15 @@ export async function saveFavourite(request: saveFavouriteType) {
   });
 
   await favourite.save();
+  revalidatePath('/');
+}
+
+export async function getFavouriteEventIds(userId: string) {
+  await dbConnect();
+
+  const favourites = await Favourites.find({ userId });
+
+  return favourites.map((f) => f.eventId);
 }
 
 export async function getFavourites(userId: string) {
