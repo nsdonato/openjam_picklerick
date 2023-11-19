@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { Newsletter } from "@/components/Newsletter";
 // import { getSubscriptionByEmail } from "@/lib/subscripton";
 
@@ -8,6 +9,7 @@ export default async function Home() {
 
   return (
     <main className="">
+      <Header />
       <Newsletter />
     </main>
   );
