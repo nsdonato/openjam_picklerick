@@ -41,7 +41,7 @@ export const Home = async ({
               {user && (
                 <SaveFavouriteButton
                   userId={userId as string}
-                  eventId="123"
+                  eventId={event._id}
                   email={user.emailAddresses[0].emailAddress}
                 />
               )}
