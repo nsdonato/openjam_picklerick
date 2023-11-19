@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import Favourites from "@/models/Favourites";
 import dbConnect from "./dbConnect";
 import Conferences from '@/models/Conferences';
+import { ObjectId } from 'mongodb';
 
 type saveFavouriteType = {
   userId: string;
@@ -35,9 +36,11 @@ export async function getFavourites(userId: string) {
 
   const favourites = await Favourites.find({ userId });
 
+  const eventIds = favourites.map((f) => f.eventId);
+
   const conferences = Conferences.find({
     _id: {
-      $in: favourites.map((favourite: any) => new mongoose.mongo.ObjectId(favourite.eventId)),
+      $in: eventIds.map((id) => new ObjectId(id)),
     }
   });
 
