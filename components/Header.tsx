@@ -1,10 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import clsx from 'clsx';
-
 import { Container } from '@/components/Container';
-import { Logo } from '@/components/Logo';
 import { NavLink } from '@/components/Nav/NavLink';
 import { SignedIn, SignedOut, UserButton, useAuth } from '@clerk/nextjs';
 import { MobileNavigation } from '@/components/Nav/MobileNavigation';
@@ -48,7 +45,9 @@ export function Header() {
               <span className="text-2xl">🥒</span>
             </NavLink>
             <div className="hidden md:flex md:gap-x-6">
-              <NavLink href={`/user/${userId}/events`}>Mis eventos</NavLink>
+              <SignedIn>
+                <NavLink href={`/user/${userId}/events`}>Mis eventos</NavLink>
+              </SignedIn>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">

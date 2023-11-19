@@ -16,20 +16,26 @@ export const Events = async ({ title = 'Top eventos', events = [] }) => {
         {title}
       </h1>
       <ul className="mt-20">
-        {events.map((event, index) => (
-          <li key={index} className="h-12 flex items-center">
-            <span className="text-black mr-2">
-              12-11-2020 | Software Crafter Barcelona
-            </span>
-            {user && (
-              <SaveFavouriteButton
-                userId={userId as string}
-                eventId="123"
-                email={user.emailAddresses[0].emailAddress}
-              />
-            )}
+        {events.length > 0 ? (
+          events.map((event, index) => (
+            <li key={index} className="h-12 flex items-center">
+              <span className="text-black mr-2">
+                12-11-2020 | Software Crafter Barcelona
+              </span>
+              {user && (
+                <SaveFavouriteButton
+                  userId={userId as string}
+                  eventId="123"
+                  email={user.emailAddresses[0].emailAddress}
+                />
+              )}
+            </li>
+          ))
+        ) : (
+          <li className="h-12 flex items-center">
+            <span className="text-black mr-2">No se registraron eventos</span>
           </li>
-        ))}
+        )}
       </ul>
     </div>
   );
