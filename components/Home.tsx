@@ -20,7 +20,6 @@ export const Home = async ({
     user = await clerkClient.users.getUser(userId);
   }
 
-  console.log(events[0].date.length);
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center align-middle">
       <h1 className="font-display text-4xl font-medium tracking-tighter text-blue-900 sm:text-5xl">
@@ -31,7 +30,7 @@ export const Home = async ({
           events.map((event, index) => (
             <li key={index} className="h-12 flex mb-4">
               <div className="flex justify-between items-center">
-                <span className="text-black mx-2 grow">{event.name}</span>
+                <span className="text-black mx-2 grow">{event.title}</span>
                 <DiamondIcon className="h-1.5 w-1.5 overflow-visible fill-current stroke-current mr-2" />
                 <span className="mr-2">
                   {Array.isArray(event.date)
