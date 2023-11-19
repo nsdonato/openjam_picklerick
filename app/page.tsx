@@ -1,29 +1,14 @@
-import { SignedIn, auth, clerkClient } from "@clerk/nextjs";
-import { Header } from "@/components/Header";
-import { Newsletter } from "@/components/Newsletter";
-import SaveFavouriteButton from "@/components/SaveFavourite";
+import { SignedIn } from '@clerk/nextjs'
+import { Header } from '@/components/Nav/Header'
+import { Home } from '@/components/Home/Home'
 
-export default async function Home() {
-  const { userId } = auth();
-
-  let user;
-  if (userId) {
-    user = await clerkClient.users.getUser(userId);
-  }
-
+export default async function Layout() {
   return (
-    <main className="">
+    <main className="mx-auto bg-indigo-50">
       <Header />
       <SignedIn>
-        {user && (
-          <SaveFavouriteButton
-            userId={userId!}
-            eventId="123"
-            email={user.emailAddresses[0].emailAddress}
-          />
-        )}
+        <Home />
       </SignedIn>
-      <Newsletter />
     </main>
-  );
+  )
 }
